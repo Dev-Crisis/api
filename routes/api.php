@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\PortfolioController;
+use App\Http\Controllers\API\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,5 +9,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::group(["prefix" => "portfolio"], function () {
-    Route::apiResource('projects', PortfolioController::class);
+    Route::apiResources([
+        "projects" => ProjectController::class
+    ]);
 });
