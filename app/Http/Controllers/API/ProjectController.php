@@ -23,50 +23,43 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request): Application|Response|ResponseFactory|bool
     {
-        //
+        $project = new Project();
+        $project->fill($request->all());
+        $project->save();
+        $projectResource = new ProjectResource($project);
+        return response($projectResource, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(Project $project): Application|Response|ResponseFactory
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
+        $projectResource = new ProjectResource($project);
+        return response($projectResource);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project): Application|Response|ResponseFactory
     {
-        //
+        $project->update($request->all());
+        $projectResource = new ProjectResource($project);
+        return response($projectResource);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project): Application|Response|ResponseFactory
     {
-        //
+        $projectResource = new ProjectResource($project);
+        $project->delete();
+        return response($projectResource);
     }
 }
